@@ -79,8 +79,9 @@ function core(iframeWin) {
       // Obsluga inner_link
       jQuery(iframeWin).contents().find('a.inner_link').each(function() {
         var urlA = jQuery(this).attr('href');
-        if (urlA.indexOf('\*') >= 0) {
-          jQuery(this).attr('href', base_url + urlA.substring(urlA.indexOf('\*')+1,urlA.length));
+        var innerLink = jQuery(this).attr('aria-link');
+        if (innerLink != '') {
+          jQuery(this).attr('href', base_url + innerLink);
           jQuery(this).click(function(event) {
             event.preventDefault();
             event.stopPropagation();
