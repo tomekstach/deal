@@ -80,7 +80,12 @@ function core(iframeWin) {
       jQuery(iframeWin).contents().find('a.inner_link').each(function() {
         var urlA = jQuery(this).attr('href');
         var innerLink = jQuery(this).attr('aria-link');
-        if (innerLink != '') {
+
+        if (urlA.indexOf('\*') >= 0 && typeof innerLink == 'undefined') {
+          innerLink = urlA.substring(urlA.indexOf('\*')+1,urlA.length);
+        }
+
+        if (innerLink != '' && typeof innerLink != 'undefined') {
           jQuery(this).attr('href', base_url + innerLink);
           jQuery(this).click(function(event) {
             event.preventDefault();
